@@ -1,0 +1,46 @@
+#include <iostream>
+#include <memory>
+
+class Instrument {
+public:
+    virtual void playSound() = 0;
+    virtual void display() {
+        std::cout << "This is an Instrument." << std::endl;
+    }
+    virtual ~Instrument() {}
+};
+
+class Piano : public Instrument {
+public:
+    void playSound() override {
+        std::cout << "Playing a melodious piano tune." << std::endl;
+    }
+    void display() override {
+        std::cout << "This is a Piano." << std::endl;
+    }
+};
+
+class Violin : public Instrument {
+public:
+    void playSound() override {
+        std::cout << "Playing a classical violin tune." << std::endl;
+    }
+    void display() override {
+        std::cout << "This is a Violin." << std::endl;
+    }
+};
+
+int main() {
+    const int size = 2;
+    std::unique_ptr<Instrument> instruments[size];
+
+    instruments[0] = std::make_unique<Piano>();
+    instruments[1] = std::make_unique<Violin>();
+
+    for (int i = 0; i < size; ++i) {
+        instruments[i]->playSound();
+        instruments[i]->display();
+    }
+
+    return 0;
+}
